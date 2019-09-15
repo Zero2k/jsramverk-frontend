@@ -1,29 +1,30 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NZ_I18N, en_US } from 'ng-zorro-antd';
-import { ThemeModule } from './theme.module';
-
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { MeComponent } from './me/me.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ReportComponent } from './report/report.component';
+import { MeComponent } from './routes/me/me.component';
+import { ReportComponent } from './routes/report/report.component';
+import { LoginComponent } from './routes/login/login.component';
+import { PageNotFoundComponent } from './routes/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MeComponent,
-    PageNotFoundComponent,
-    ReportComponent
+    ReportComponent,
+    LoginComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
+    ComponentsModule,
     BrowserAnimationsModule,
-    ThemeModule,
     AppRoutingModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

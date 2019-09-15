@@ -1,29 +1,5 @@
-<nz-layout>
-  <nz-header>
-    <div class="logo"></div>
-    <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li
-        nz-menu-item
-        routerLink=""
-        routerLinkActive="ant-menu-item-selected"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Startsida
-      </li>
-      <li
-        nz-menu-item
-        routerLink="reports/week/1"
-        routerLinkActive="ant-menu-item-selected"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Kmom01
-      </li>
-    </ul>
-  </nz-header>
-  <nz-content>
-    <div class="inner-content">
-      <router-outlet style="margin-top: 80px;"></router-outlet>
-    </div>
-  </nz-content>
-  <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
-</nz-layout>
+<app-header></app-header>
+<div class="container" style="margin-top: 20px;">
+  <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>

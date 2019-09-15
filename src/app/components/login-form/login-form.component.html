@@ -1,0 +1,72 @@
+<pre>
+  Selected date {{ form.value.date }}
+</pre>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    <div>
+      <form [formGroup]="form" novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" formControlName="name" type="text" />
+        </div>
+        <div
+          *ngIf="
+            form.controls['name'].invalid &&
+            (form.controls['name'].dirty || form.controls['name'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="form.controls['name'].errors.required">
+            Name is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" formControlName="email" type="email" />
+        </div>
+        <div
+          *ngIf="
+            form.controls['email'].invalid &&
+            (form.controls['email'].dirty || form.controls['email'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="form.controls['email'].errors.required">
+            email is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Password</label>
+          <input
+            class="form-control"
+            formControlName="password"
+            type="password"
+          />
+        </div>
+        <div
+          *ngIf="
+            form.controls['password'].invalid &&
+            (form.controls['password'].dirty ||
+              form.controls['password'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="form.controls['password'].errors.required">
+            password is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Birthday</label>
+          <datepicker (update)="onDateUpdate($event)"></datepicker>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Create account
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<br />
+<p>Form value: {{ form.value | json }}</p>
+<p>Form status: {{ form.status | json }}</p>
