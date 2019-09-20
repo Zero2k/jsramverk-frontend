@@ -74,7 +74,7 @@ const Header = () => {
             variant="outlined"
             className={classes.link}
           >
-            Login
+            Auth
           </Button>
         </Toolbar>
       </AppBar>

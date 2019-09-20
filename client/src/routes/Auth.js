@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(3)
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundColor: 'orange',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center'

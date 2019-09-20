@@ -1,5 +1,7 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import { stores } from './stores';
 
@@ -10,8 +12,10 @@ class App extends React.Component {
   render() {
     return (
       <Provider {...stores}>
-        <CssBaseline />
-        <Routes />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <CssBaseline />
+          <Routes />
+        </MuiPickersUtilsProvider>
       </Provider>
     );
   }

@@ -5,7 +5,7 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockOpenOutlined from '@material-ui/icons/LockOpenOutlined';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -56,7 +56,7 @@ const LoginForm = props => {
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
+        <LockOpenOutlined />
       </Avatar>
       <Typography component="h1" variant="h5">
         Sign in
@@ -104,7 +104,7 @@ const LoginForm = props => {
             </Link>
           </Grid>
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link href="/forgot" variant="body2">
               Forgot password?
             </Link>
           </Grid>

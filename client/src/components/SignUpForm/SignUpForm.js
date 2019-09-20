@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { DatePicker } from "@material-ui/pickers";
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockOutlined from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -50,11 +51,12 @@ const useStyles = makeStyles(theme => ({
 const SignUpForm = props => {
   const { toggle } = props;
   const classes = useStyles();
+  const [selectedDate, handleDateChange] = useState(null);
 
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
+        <LockOutlined />
       </Avatar>
       <Typography component="h1" variant="h5">
         Sign up
@@ -91,6 +93,18 @@ const SignUpForm = props => {
           type="password"
           id="password"
           autoComplete="current-password"
+        />
+        <DatePicker
+          margin="normal"
+          fullWidth
+          disableFuture
+          inputVariant="outlined"
+          openTo="year"
+          format="dd/MM/yyyy"
+          label="Date of birth"
+          views={["year", "month", "date"]}
+          value={selectedDate}
+          onChange={handleDateChange}
         />
         <Button
           type="submit"
