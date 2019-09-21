@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -9,19 +9,11 @@ import Box from '@material-ui/core/Box';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { withFormik } from 'formik';
+import { format } from 'date-fns';
 
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Viktor Bengtsson
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-};
+import { SignUpSchema } from '../../utils/validation';
+import Copyright from '../../utils/copyright';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -45,13 +37,25 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  validation: {
+    color: '#ff3838'
   }
 }));
 
 const SignUpForm = props => {
-  const { toggle } = props;
+  const {
+    toggle,
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    handleSubmit
+  } = props;
   const classes = useStyles();
-  const [selectedDate, handleDateChange] = useState(null);
 
   return (
     <div className={classes.paper}>
@@ -61,7 +65,7 @@ const SignUpForm = props => {
       <Typography component="h1" variant="h5">
         Sign up
       </Typography>
-      <form className={classes.form} noValidate>
+      <form className={classes.form} onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -71,8 +75,11 @@ const SignUpForm = props => {
           label="Your Name"
           name="name"
           autoComplete="name"
+          value={values.name}
+          onChange={handleChange}
           autoFocus
         />
+        {errors.name ? <div className={classes.validation}>{errors.name}</div> : null}
         <TextField
           variant="outlined"
           margin="normal"
@@ -81,8 +88,12 @@ const SignUpForm = props => {
           id="email"
           label="Email Address"
           name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
           autoComplete="email"
         />
+        {errors.email && touched.email ? <div className={classes.validation}>{errors.email}</div> : null}
         <TextField
           variant="outlined"
           margin="normal"
@@ -92,26 +103,38 @@ const SignUpForm = props => {
           label="Password"
           type="password"
           id="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
           autoComplete="current-password"
         />
+        {errors.password && touched.password ? <div className={classes.validation}>{errors.password}</div> : null}
         <DatePicker
           margin="normal"
+          required
           fullWidth
           disableFuture
           inputVariant="outlined"
           openTo="year"
           format="dd/MM/yyyy"
           label="Date of birth"
+          name="date"
+          id="date"
           views={["year", "month", "date"]}
-          value={selectedDate}
-          onChange={handleDateChange}
+          value={values.date}
+          onChange={date => {
+            setFieldValue("date", format(date, 'yyyy/MM/dd'));
+          }}
+          onBlur={handleBlur}
         />
+        {errors.date && touched.date ? <div className={classes.validation}>{errors.date}</div> : null}
         <Button
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
           className={classes.submit}
+          disabled={isSubmitting}
         >
           Sign Up
         </Button>
@@ -130,4 +153,18 @@ const SignUpForm = props => {
   );
 };
 
-export default SignUpForm;
+export default withFormik({
+  mapPropsToValues: () => ({
+    name: '',
+    email: '',
+    password: '',
+    date: null,
+  }),
+
+  validationSchema: SignUpSchema,
+
+  handleSubmit: async (values, { props, setSubmitting, setErrors }) => {
+    setSubmitting(true);
+    console.log(values)
+  },
+})(SignUpForm);

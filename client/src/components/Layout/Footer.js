@@ -1,10 +1,9 @@
 import React from 'react';
-
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Copyright from '../../utils/copyright';
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -19,25 +18,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Viktor Bengtsson
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const Footer = () => {
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <Container maxWidth="md" component="footer" className={classes.footer}>
+      <Container component="footer" className={classes.footer}>
         {/* <Grid container spacing={4} justify="space-evenly">
           {footers.map(footer => (
             <Grid item xs={6} sm={3} key={footer.title}>

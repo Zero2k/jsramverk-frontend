@@ -7,22 +7,11 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import LockOpenOutlined from '@material-ui/icons/LockOpenOutlined';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
+import { withFormik } from 'formik';
 
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Viktor Bengtsson
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-};
+import { LoginSchema } from '../../utils/validation';
+import Copyright from '../../utils/copyright';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -46,11 +35,23 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  validation: {
+    color: '#ff3838'
   }
 }));
 
 const LoginForm = props => {
-  const { toggle } = props;
+  const {
+    toggle,
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit
+  } = props;
   const classes = useStyles();
 
   return (
@@ -61,7 +62,7 @@ const LoginForm = props => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <form className={classes.form} noValidate>
+      <form className={classes.form} onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -70,9 +71,11 @@ const LoginForm = props => {
           id="email"
           label="Email Address"
           name="email"
-          autoComplete="email"
+          value={values.email}
+          onChange={handleChange}
           autoFocus
         />
+        {errors.email ? <div className={classes.validation}>{errors.email}</div> : null}
         <TextField
           variant="outlined"
           margin="normal"
@@ -82,18 +85,18 @@ const LoginForm = props => {
           label="Password"
           type="password"
           id="password"
-          autoComplete="current-password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
         />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
+        {errors.password && touched.password ? <div className={classes.validation}>{errors.password}</div> : null}
         <Button
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
           className={classes.submit}
+          disabled={isSubmitting}
         >
           Sign In
         </Button>
@@ -117,4 +120,16 @@ const LoginForm = props => {
   );
 };
 
-export default LoginForm;
+export default withFormik({
+  mapPropsToValues: () => ({
+    email: '',
+    password: '',
+  }),
+
+  validationSchema: LoginSchema,
+
+  handleSubmit: async (values, { props, setSubmitting, setErrors }) => {
+    setSubmitting(true);
+    console.log(values)
+  },
+})(LoginForm);

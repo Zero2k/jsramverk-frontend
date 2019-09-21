@@ -40,32 +40,32 @@ const Header = () => {
             noWrap
             className={classes.toolbarTitle}
           >
-            Company name
+            Me App
           </Typography>
           <nav>
             <Link
               variant="button"
               color="textPrimary"
-              href="#"
+              href="/"
               className={classes.link}
             >
-              Features
+              Start
             </Link>
             <Link
               variant="button"
               color="textPrimary"
-              href="#"
+              href="/reports/week/1"
               className={classes.link}
             >
-              Enterprise
+              Kmom01
             </Link>
             <Link
               variant="button"
               color="textPrimary"
-              href="#"
+              href="/reports/week/2"
               className={classes.link}
             >
-              Support
+              Kmom02
             </Link>
           </nav>
           <Button
