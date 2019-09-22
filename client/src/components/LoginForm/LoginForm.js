@@ -128,8 +128,16 @@ export default withFormik({
 
   validationSchema: LoginSchema,
 
-  handleSubmit: async (values, { props, setSubmitting, setErrors }) => {
-    setSubmitting(true);
-    console.log(values)
+  handleSubmit: async (values, { props, setSubmitting, setErrors, resetForm }) => {
+    const errors = await props.submit(values);
+    console.log(errors);
+    if (errors) {
+      setErrors(errors);
+      setSubmitting(false);
+    } else {
+      setSubmitting(false);
+      resetForm()
+      /* props.onSuccess(); */
+    }
   },
 })(LoginForm);

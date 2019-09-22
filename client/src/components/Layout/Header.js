@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Link as RouterLink } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import { inject } from 'mobx-state-tree';
+import { withStyles } from '@material-ui/core/styles';
+import { inject } from 'mobx-react';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`
   },
@@ -20,11 +21,12 @@ const useStyles = makeStyles(theme => ({
   link: {
     margin: theme.spacing(1, 1.5)
   }
-}));
+});
 
-class Header extends Component {
+@inject('authStore')
+class Header extends React.Component {
   render() {
-    const classes = useStyles();
+    const { classes, authStore } = this.props;
     return (
       <React.Fragment>
       <AppBar
@@ -46,15 +48,18 @@ class Header extends Component {
             <Link
               variant="button"
               color="textPrimary"
-              href="/"
+              component={RouterLink} to="/"
               className={classes.link}
             >
               Start
             </Link>
+          </nav>
+          {authStore.checkAuth ? (
+          <nav>
             <Link
               variant="button"
               color="textPrimary"
-              href="/reports/week/1"
+              component={RouterLink} to="/reports/week/1"
               className={classes.link}
             >
               Kmom01
@@ -62,16 +67,17 @@ class Header extends Component {
             <Link
               variant="button"
               color="textPrimary"
-              href="/reports/week/2"
+              component={RouterLink} to="/reports/week/2"
               className={classes.link}
             >
               Kmom02
             </Link>
           </nav>
+          ) : null}
           <Button
-            href="/auth"
             color="primary"
             variant="outlined"
+            component={RouterLink} to="/auth"
             className={classes.link}
           >
             Auth
@@ -83,4 +89,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withStyles(styles)(Header);

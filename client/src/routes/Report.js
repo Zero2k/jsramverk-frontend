@@ -2,7 +2,7 @@ import React from 'react';
 
 const questions = [
   {
-    id: 1,
+    id: '1',
     title: 'Kmom01',
     content:
       '<p>Github: <a href="https://github.com/Zero2k/jsramverk">Zero2k</a></p> <p>Installera paket / moduler med `npm install` eller `yarn install`.</p>'
@@ -17,9 +17,14 @@ const questions = [
 
 const Report = props => {
   console.log(props.match.params.id);
+  const question = questions.filter(q => q.id === props.match.params.id)[0];
+  console.log(question);
 
   return (
-    <p>Report</p>
+    <div>
+      <h2>{question.title}</h2>
+      <div dangerouslySetInnerHTML={{__html: question.content}} />
+    </div>
   )
 }
 

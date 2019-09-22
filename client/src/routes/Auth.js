@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/LoginForm/LoginForm';
 import SignUpForm from '../components/SignUpForm/SignUpForm';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { inject } from 'mobx-react';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     height: '100vh'
   },
@@ -26,40 +27,52 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   }
-}));
+});
 
-const Auth = props => {
-  const { history } = props;
-  const [login, setLogin] = useState(true);
-
-  const toggle = () => {
-    setLogin(login === true ? false : true);
+@inject('authStore')
+class Auth extends React.Component {
+  state = {
+    login: true
+  }
+  
+  toggle = () => {
+    this.setState({
+      login: !this.state.login
+    })
   };
 
-  const handleBack = () => {
-    history.push('/');
+  handleBack = () => {
+    this.props.history.push('/');
   };
 
-  const classes = useStyles();
-  return (
-    <Grid container component="main" className={classes.root}>
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.header}>
-          <IconButton className={classes.button} onClick={handleBack}>
-            <ArrowBackIcon />
-          </IconButton>
-        </div>
-        <div>
-          {login ? (
-            <LoginForm toggle={toggle} />
-          ) : (
-            <SignUpForm toggle={toggle} />
-          )}
-        </div>
+  handleLogin = async ({ email, password }) => {
+    return this.props.authStore.login(email, password);
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { login } = this.state;
+
+    return (
+      <Grid container component="main" className={classes.root}>
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.header}>
+            <IconButton className={classes.button} onClick={this.handleBack}>
+              <ArrowBackIcon />
+            </IconButton>
+          </div>
+          <div>
+            {login ? (
+              <LoginForm toggle={this.toggle} submit={this.handleLogin} />
+            ) : (
+              <SignUpForm toggle={this.toggle} />
+            )}
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
-  );
-};
+    )
+  }
+}
 
-export default withRouter(Auth);
+export default withStyles(styles)(withRouter(Auth));
