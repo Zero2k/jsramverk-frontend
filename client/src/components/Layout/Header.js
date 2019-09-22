@@ -1,11 +1,11 @@
-import React from 'react';
-
+import React, { Component } from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { inject } from 'mobx-state-tree';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = () => {
-  const classes = useStyles();
-
-  return (
-    <React.Fragment>
+class Header extends Component {
+  render() {
+    const classes = useStyles();
+    return (
+      <React.Fragment>
       <AppBar
         position="static"
         color="default"
@@ -79,7 +79,8 @@ const Header = () => {
         </Toolbar>
       </AppBar>
     </React.Fragment>
-  );
-};
+    )
+  }
+}
 
 export default Header;
