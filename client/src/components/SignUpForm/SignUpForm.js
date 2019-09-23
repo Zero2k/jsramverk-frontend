@@ -71,15 +71,15 @@ const SignUpForm = props => {
           margin="normal"
           required
           fullWidth
-          id="name"
-          label="Your Name"
-          name="name"
-          autoComplete="name"
-          value={values.name}
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
+          value={values.username}
           onChange={handleChange}
           autoFocus
         />
-        {errors.name ? <div className={classes.validation}>{errors.name}</div> : null}
+        {errors.username ? <div className={classes.validation}>{errors.username}</div> : null}
         <TextField
           variant="outlined"
           margin="normal"
@@ -155,7 +155,7 @@ const SignUpForm = props => {
 
 export default withFormik({
   mapPropsToValues: () => ({
-    name: '',
+    username: '',
     email: '',
     password: '',
     date: null,

@@ -7,21 +7,26 @@ const externalApi = wretch()
   .url(API_ROOT)
 
 const requests = {
-  del: url =>
+  del: (url, token = null) =>
     externalApi
+    .auth(token)
     .url(url)
     .delete()
     .json(),
-  get: url =>
+  get: (url, token = null) =>
     externalApi
+    .auth(token)
     .url(url)
-    .get(),
-  put: (url, body) =>
+    .get()
+    .json(),
+  put: (url, body, token = null) =>
     externalApi
+    .auth(token)
     .url(url)
     .put(body),
-  post: (url, body) =>
+  post: (url, body, token = null) =>
     externalApi
+    .auth(token)
     .url(url)
     .post(body)
     .json()
@@ -29,7 +34,7 @@ const requests = {
 
 const Auth = {
   login: async (email, password) =>
-    requests.post('/users/login', { user: { email, password } })
+    requests.post('/users/login', { email, password })
 };
 
 export default {

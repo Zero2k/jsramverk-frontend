@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 const styles = theme => ({
   appBar: {
@@ -24,6 +24,7 @@ const styles = theme => ({
 });
 
 @inject('authStore')
+@observer
 class Header extends React.Component {
   render() {
     const { classes, authStore } = this.props;
@@ -72,8 +73,17 @@ class Header extends React.Component {
             >
               Kmom02
             </Link>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={authStore.logout}
+              className={classes.link}
+            >
+              Log Out
+            </Button>
           </nav>
           ) : null}
+          {!authStore.checkAuth ? (
           <Button
             color="primary"
             variant="outlined"
@@ -82,6 +92,7 @@ class Header extends React.Component {
           >
             Auth
           </Button>
+          ) : null}
         </Toolbar>
       </AppBar>
     </React.Fragment>

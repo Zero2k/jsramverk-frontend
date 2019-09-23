@@ -1,5 +1,6 @@
 import { types, flow } from 'mobx-state-tree';
-import apiService from '../api/apiService'
+import apiService from '../api/apiService';
+import formatError from '../utils/formatError';
 
 export const AuthStore = types
   .model('AuthStore', {
@@ -16,14 +17,24 @@ export const AuthStore = types
     login: flow(function*(email, password) {
       try {
         if (email && password) {
-          const res = yield apiService.Auth.login(email, password)
-          console.log('Store', res);
+          const res = yield apiService.Auth.login(email, password);
+          
+          if (res.token) {
+            self.authToken = res.token;
+            self.isAuthenticed = true;
+          } else {
+            return formatError(res);
+          }
         }
-      } catch (e) {
-        return e;
+      } catch (err) {
+        console.log(err);
       }
     }),
     saveToken: flow(function*() {
       /* Store */
-    })
+    }),
+    logout() {
+      self.authToken = '';
+      self.isAuthenticed = false;
+    }
   }));

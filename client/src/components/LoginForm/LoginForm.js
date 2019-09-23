@@ -46,6 +46,7 @@ const LoginForm = props => {
     toggle,
     values,
     errors,
+    status,
     touched,
     isSubmitting,
     handleChange,
@@ -76,6 +77,9 @@ const LoginForm = props => {
           autoFocus
         />
         {errors.email ? <div className={classes.validation}>{errors.email}</div> : null}
+        {status && status.email ? (
+          <div className={classes.validation}>{status.email}</div>
+        ) : null}
         <TextField
           variant="outlined"
           margin="normal"
@@ -90,6 +94,9 @@ const LoginForm = props => {
           onBlur={handleBlur}
         />
         {errors.password && touched.password ? <div className={classes.validation}>{errors.password}</div> : null}
+        {status && status.password ? (
+          <div className={classes.validation}>{status.password}</div>
+        ) : null}
         <Button
           type="submit"
           fullWidth
@@ -128,16 +135,15 @@ export default withFormik({
 
   validationSchema: LoginSchema,
 
-  handleSubmit: async (values, { props, setSubmitting, setErrors, resetForm }) => {
+  handleSubmit: async (values, { props, setSubmitting, setStatus, resetForm }) => {
     const errors = await props.submit(values);
-    console.log(errors);
     if (errors) {
-      setErrors(errors);
+      setStatus(errors);
       setSubmitting(false);
     } else {
       setSubmitting(false);
       resetForm()
-      /* props.onSuccess(); */
+      props.onSuccess('/');
     }
   },
 })(LoginForm);

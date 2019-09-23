@@ -11,7 +11,7 @@ export const LoginSchema = Yup.object().shape({
 });
 
 export const SignUpSchema = Yup.object().shape({
-  name: Yup.string()
+  username: Yup.string()
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')

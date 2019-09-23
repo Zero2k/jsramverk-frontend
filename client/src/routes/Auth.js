@@ -45,6 +45,10 @@ class Auth extends React.Component {
     this.props.history.push('/');
   };
 
+  redirect = (path) => {
+    this.props.history.push(path);
+  }
+
   handleLogin = async ({ email, password }) => {
     return this.props.authStore.login(email, password);
   }
@@ -64,7 +68,7 @@ class Auth extends React.Component {
           </div>
           <div>
             {login ? (
-              <LoginForm toggle={this.toggle} submit={this.handleLogin} />
+              <LoginForm toggle={this.toggle} submit={this.handleLogin} onSuccess={this.redirect} />
             ) : (
               <SignUpForm toggle={this.toggle} />
             )}
