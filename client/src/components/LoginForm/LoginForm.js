@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import LockOpenOutlined from '@material-ui/icons/LockOpenOutlined';
 import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
 import { withFormik } from 'formik';
 
@@ -97,6 +99,10 @@ const LoginForm = props => {
         {status && status.password ? (
           <div className={classes.validation}>{status.password}</div>
         ) : null}
+        <FormControlLabel
+          control={<Checkbox name="remember" value="remember" checked={values.remember} onChange={handleChange} color="primary" />}
+          label="Remember me"
+        />
         <Button
           type="submit"
           fullWidth
@@ -131,6 +137,7 @@ export default withFormik({
   mapPropsToValues: () => ({
     email: '',
     password: '',
+    remember: false
   }),
 
   validationSchema: LoginSchema,

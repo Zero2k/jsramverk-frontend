@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 const questions = [
   {
@@ -15,17 +17,21 @@ const questions = [
   }
 ];
 
-const Report = props => {
-  console.log(props.match.params.id);
+const ViewReport = props => {
   const question = questions.filter(q => q.id === props.match.params.id)[0];
-  console.log(question);
 
   return (
     <div>
       <h2>{question.title}</h2>
       <div dangerouslySetInnerHTML={{__html: question.content}} />
+      <Button
+        color="primary"
+        variant="outlined"
+        component={RouterLink} 
+        to={`/reports/edit/${question.id}`}
+      >Edit</Button>
     </div>
   )
 }
 
-export default Report
+export default ViewReport

@@ -34,7 +34,9 @@ const requests = {
 
 const Auth = {
   login: async (email, password) =>
-    requests.post('/users/login', { email, password })
+    requests.post('/users/login', { email, password }),
+  me: async (token) => 
+    requests.post('/users/me', null, token)
 };
 
 export default {

@@ -76,7 +76,7 @@ class Header extends React.Component {
             <Button
               color="primary"
               variant="outlined"
-              onClick={authStore.logout}
+              component={RouterLink} to="/logout"
               className={classes.link}
             >
               Log Out

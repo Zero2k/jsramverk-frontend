@@ -24,3 +24,10 @@ export const SignUpSchema = Yup.object().shape({
     .nullable()
     .required('Required'),
 });
+
+export const ReportSchema = Yup.object().shape({
+  title: Yup.string()
+    .required('Required'),
+  text: Yup.string()
+  .required('Required'),
+});

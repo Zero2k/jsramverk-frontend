@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -49,8 +49,8 @@ class Auth extends React.Component {
     this.props.history.push(path);
   }
 
-  handleLogin = async ({ email, password }) => {
-    return this.props.authStore.login(email, password);
+  handleLogin = async ({ email, password, remember }) => {
+    return this.props.authStore.login(email, password, remember);
   }
 
   render() {
