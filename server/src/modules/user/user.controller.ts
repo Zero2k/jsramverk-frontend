@@ -1,10 +1,12 @@
+import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import * as Yup from 'yup';
+import { omit } from 'lodash';
 import { JwtService } from '../../utils/jwt';
 import { User } from '../../entity/User';
 
 const UserContoller = {
-  async signUp(req, res) {
+  async signUp(req: Request, res: Response) {
     const { username, email, password } = req.body;
 
     const bodySchema = Yup.object().shape({
@@ -46,7 +48,7 @@ const UserContoller = {
     }
   },
 
-  async signIn(req, res) {
+  async signIn(req: Request, res: Response) {
     const { email, password } = req.body;
 
     const bodySchema = Yup.object().shape({
@@ -84,17 +86,39 @@ const UserContoller = {
     }
   },
 
-  async recovery(req, res) {},
+  async recovery(req: Request, res: Response) {},
 
-  async reset(req, res) {},
+  async reset(req: Request, res: Response) {},
 
-  async profiles(req, res) {},
+  async profiles(req: Request, res: Response) {},
 
-  async profile(req, res) {},
+  async profile(req: Request, res: Response) {},
 
-  async update(req, res) {},
+  async me(req: Request, res: Response) {
+    try {
+      if (req.user) {
+        const user = await User.findOne({
+          where: { id: req.user.id }
+        });
 
-  async delete(req, res) {}
+        if (!user) {
+          throw { msg: 'User do not exist' };
+        }
+
+        res.json(
+          omit(user, 'password', 'resetPasswordToken', 'resetPasswordExpires')
+        );
+      } else {
+        res.json({ status: 400, msg: 'No user' });
+      }
+    } catch (error) {
+      res.json({ status: 400, error });
+    }
+  },
+
+  async update(req: Request, res: Response) {},
+
+  async delete(req: Request, res: Response) {}
 };
 
 export default UserContoller;
