@@ -19,18 +19,20 @@ class Private extends React.Component {
     const { component: Component, authStore, ...rest } = this.props;
     
     return (
-      <Route
-        {...rest}
-        render={(props) => (
-          <div>
-            <Header />
-              <Container component="main">
-                <Component {...props} />
-              </Container>
-            <Footer />
-          </div>
-        )}
-      />
+      <div>
+        {authStore.checkAuth ? (<Route
+          {...rest}
+          render={(props) => (
+            <div>
+              <Header />
+                <Container component="main">
+                  <Component {...props} />
+                </Container>
+              <Footer />
+            </div>
+          )}
+        />) : null}
+      </div>
     )
   }
 }

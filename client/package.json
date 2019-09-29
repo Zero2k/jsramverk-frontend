@@ -142,6 +142,7 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
-    ]
+    ],
+    "proxy": "http://localhost:4000"
   }
 }

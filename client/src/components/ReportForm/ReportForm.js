@@ -61,7 +61,9 @@ const EditForm = props => {
           onChange={handleChange}
           autoFocus
         />
-        {errors.title ? <div className={classes.validation}>{errors.title}</div> : null}
+        {errors.title ? (
+          <div className={classes.validation}>{errors.title}</div>
+        ) : null}
         {status && status.title ? (
           <div className={classes.validation}>{status.title}</div>
         ) : null}
@@ -69,10 +71,12 @@ const EditForm = props => {
           className={classes.editor}
           value={values.text}
           onChange={data => {
-            setFieldValue("text", data);
+            setFieldValue('text', data);
           }}
         />
-        {errors.text && touched.text ? <div className={classes.validation}>{errors.text}</div> : null}
+        {errors.text && touched.text ? (
+          <div className={classes.validation}>{errors.text}</div>
+        ) : null}
         <Button
           type="submit"
           fullWidth
@@ -89,23 +93,27 @@ const EditForm = props => {
 };
 
 export default withFormik({
-  mapPropsToValues: () => ({
+  mapPropsToValues: ({ data }) => ({
+    id: '',
     title: '',
     text: '',
+    ...data
   }),
 
   validationSchema: ReportSchema,
 
-  handleSubmit: async (values, { props, setSubmitting, setStatus, resetForm }) => {
-    console.log(values);
-    /* const errors = await props.submit(values);
-    if (errors) {
+  handleSubmit: async (
+    values,
+    { props, setSubmitting, setStatus, resetForm }
+  ) => {
+    await props.submit(values);
+    resetForm();
+    props.onSuccess('/');
+    /* if (errors) {
       setStatus(errors);
       setSubmitting(false);
     } else {
       setSubmitting(false);
-      resetForm()
-      props.onSuccess('/');
     } */
-  },
+  }
 })(EditForm);

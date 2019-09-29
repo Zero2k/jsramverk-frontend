@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { inject, observer } from 'mobx-react';
+import { inject } from 'mobx-react';
 
 const styles = theme => ({
   '@global': {
@@ -21,7 +21,6 @@ const styles = theme => ({
 
 
 @inject('authStore')
-@observer
 class Logout extends React.Component {
   componentDidMount() {
       this.props.authStore.logout();

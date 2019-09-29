@@ -19,7 +19,27 @@ export const AuthStore = types
       try {
         if (email && password) {
           const res = yield apiService.Auth.login(email, password);
-          
+
+          if (res.token) {
+            self.authToken = res.token;
+            self.isAuthenticed = true;
+          } else {
+            return formatError(res);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+    signUp: flow(function*(username, email, password, date) {
+      try {
+        if (username && email && password && date) {
+          const res = yield apiService.Auth.signUp(
+            username,
+            email,
+            password,
+            date
+          );
           if (res.token) {
             self.authToken = res.token;
             self.isAuthenticed = true;

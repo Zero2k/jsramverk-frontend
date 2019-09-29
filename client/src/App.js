@@ -7,6 +7,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import { stores } from './stores';
 import Routes from './routes';
 
+import './App.css';
+
 class App extends React.Component {
   render() {
     return (

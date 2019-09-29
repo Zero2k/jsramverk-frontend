@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import LoginForm from '../components/LoginForm/LoginForm';
-import SignUpForm from '../components/SignUpForm/SignUpForm';
+import LoginForm from '../components/AuthForm/LoginForm';
+import SignUpForm from '../components/AuthForm/SignUpForm';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { inject } from 'mobx-react';
@@ -33,25 +33,29 @@ const styles = theme => ({
 class Auth extends React.Component {
   state = {
     login: true
-  }
-  
+  };
+
   toggle = () => {
     this.setState({
       login: !this.state.login
-    })
+    });
   };
 
   handleBack = () => {
     this.props.history.push('/');
   };
 
-  redirect = (path) => {
+  redirect = path => {
     this.props.history.push(path);
-  }
+  };
 
   handleLogin = async ({ email, password, remember }) => {
     return this.props.authStore.login(email, password, remember);
-  }
+  };
+
+  handleSignup = async ({ username, email, password, date }) => {
+    return this.props.authStore.signUp(username, email, password, date);
+  };
 
   render() {
     const { classes } = this.props;
@@ -68,14 +72,22 @@ class Auth extends React.Component {
           </div>
           <div>
             {login ? (
-              <LoginForm toggle={this.toggle} submit={this.handleLogin} onSuccess={this.redirect} />
+              <LoginForm
+                toggle={this.toggle}
+                submit={this.handleLogin}
+                onSuccess={this.redirect}
+              />
             ) : (
-              <SignUpForm toggle={this.toggle} />
+              <SignUpForm
+                toggle={this.toggle}
+                submit={this.handleSignup}
+                onSuccess={this.redirect}
+              />
             )}
           </div>
         </Grid>
       </Grid>
-    )
+    );
   }
 }
 

@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { DatePicker } from "@material-ui/pickers";
+import { DatePicker } from '@material-ui/pickers';
 import Box from '@material-ui/core/Box';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -48,6 +48,7 @@ const SignUpForm = props => {
     toggle,
     values,
     errors,
+    status,
     touched,
     isSubmitting,
     handleChange,
@@ -79,7 +80,12 @@ const SignUpForm = props => {
           onChange={handleChange}
           autoFocus
         />
-        {errors.username ? <div className={classes.validation}>{errors.username}</div> : null}
+        {errors.username ? (
+          <div className={classes.validation}>{errors.username}</div>
+        ) : null}
+        {status && status.username ? (
+          <div className={classes.validation}>{status.username}</div>
+        ) : null}
         <TextField
           variant="outlined"
           margin="normal"
@@ -93,7 +99,12 @@ const SignUpForm = props => {
           onBlur={handleBlur}
           autoComplete="email"
         />
-        {errors.email && touched.email ? <div className={classes.validation}>{errors.email}</div> : null}
+        {errors.email && touched.email ? (
+          <div className={classes.validation}>{errors.email}</div>
+        ) : null}
+        {status && status.email ? (
+          <div className={classes.validation}>{status.email}</div>
+        ) : null}
         <TextField
           variant="outlined"
           margin="normal"
@@ -108,7 +119,12 @@ const SignUpForm = props => {
           onBlur={handleBlur}
           autoComplete="current-password"
         />
-        {errors.password && touched.password ? <div className={classes.validation}>{errors.password}</div> : null}
+        {errors.password && touched.password ? (
+          <div className={classes.validation}>{errors.password}</div>
+        ) : null}
+        {status && status.password ? (
+          <div className={classes.validation}>{status.password}</div>
+        ) : null}
         <DatePicker
           margin="normal"
           required
@@ -120,14 +136,16 @@ const SignUpForm = props => {
           label="Date of birth"
           name="date"
           id="date"
-          views={["year", "month", "date"]}
+          views={['year', 'month', 'date']}
           value={values.date}
           onChange={date => {
-            setFieldValue("date", format(date, 'yyyy/MM/dd'));
+            setFieldValue('date', format(date, 'yyyy-MM-dd'));
           }}
           onBlur={handleBlur}
         />
-        {errors.date && touched.date ? <div className={classes.validation}>{errors.date}</div> : null}
+        {errors.date && touched.date ? (
+          <div className={classes.validation}>{errors.date}</div>
+        ) : null}
         <Button
           type="submit"
           fullWidth
@@ -158,13 +176,23 @@ export default withFormik({
     username: '',
     email: '',
     password: '',
-    date: null,
+    date: null
   }),
 
   validationSchema: SignUpSchema,
 
-  handleSubmit: async (values, { props, setSubmitting, setErrors }) => {
-    setSubmitting(true);
-    console.log(values)
-  },
+  handleSubmit: async (
+    values,
+    { props, setSubmitting, setStatus, resetForm }
+  ) => {
+    const errors = await props.submit(values);
+    if (errors) {
+      setStatus(errors);
+      setSubmitting(false);
+    } else {
+      setSubmitting(false);
+      resetForm();
+      props.onSuccess('/');
+    }
+  }
 })(SignUpForm);

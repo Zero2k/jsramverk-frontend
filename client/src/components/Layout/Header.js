@@ -60,19 +60,19 @@ class Header extends React.Component {
             <Link
               variant="button"
               color="textPrimary"
-              component={RouterLink} to="/reports/week/1"
+              component={RouterLink} to="/reports"
               className={classes.link}
             >
-              Kmom01
+              Reports
             </Link>
-            <Link
-              variant="button"
-              color="textPrimary"
-              component={RouterLink} to="/reports/week/2"
+            <Button
+              color="primary"
+              variant="outlined"
+              component={RouterLink} to="/reports/create"
               className={classes.link}
             >
-              Kmom02
-            </Link>
+              Create
+            </Button>
             <Button
               color="primary"
               variant="outlined"
