@@ -8,6 +8,7 @@ const routes = new Router();
 routes.get('/list', userAuth, Report.getReports);
 routes.post('/create', userAuth, Report.createReport);
 routes.put('/update', userAuth, Report.updateReport);
+routes.delete('/delete/:id', userAuth, Report.deleteReport);
 routes.get('/:id', userAuth, Report.singleReport);
 
 export default routes;

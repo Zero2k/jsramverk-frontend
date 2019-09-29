@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as path from 'path';
 import * as cors from 'cors';
 
 import db from './utils/db';
@@ -22,13 +23,12 @@ const createServer = async () => {
 
   apiRoutes(app);
 
-  app.get('*', (req, res) =>
-    res.status(200).send({
-      message: 'Welcome to the default route'
-    })
-  );
-
   await db();
+
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../../client/build')));
+    app.use('*', express.static(path.join(__dirname, '../../client/build')));
+  }
 
   const PORT = process.env.PORT || 4000;
 

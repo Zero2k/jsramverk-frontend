@@ -14,7 +14,7 @@ export class Report extends BaseEntity {
   @Column('varchar')
   title: string;
 
-  @Column('varchar', { nullable: false })
+  @Column('text', { nullable: false })
   text: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })

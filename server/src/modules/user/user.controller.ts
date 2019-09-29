@@ -7,7 +7,7 @@ import { User } from '../../entity/User';
 
 const UserContoller = {
   async signUp(req: Request, res: Response) {
-    const { username, email, password } = req.body;
+    const { username, email, password, date } = req.body;
 
     const bodySchema = Yup.object().shape({
       username: Yup.string().required('Required'),
@@ -17,11 +17,12 @@ const UserContoller = {
       password: Yup.string()
         .required('No password provided.')
         .min(8, 'Password is too short - should be 8 chars minimum.')
-        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+      date: Yup.date().required('Required')
     });
 
     try {
-      await bodySchema.validate({ username, email, password });
+      await bodySchema.validate({ username, email, password, date });
 
       const userExists = await User.findOne({
         where: { email },
@@ -37,7 +38,8 @@ const UserContoller = {
       const user = await User.create({
         username,
         email,
-        password: hashPassword
+        password: hashPassword,
+        birthday: date
       }).save();
 
       const jwtToken = JwtService.createToken(user);

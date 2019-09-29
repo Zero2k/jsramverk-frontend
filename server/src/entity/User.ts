@@ -11,7 +11,7 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar', { unique: true })
+  @Column('varchar')
   username: string;
 
   @Column('varchar', { unique: true })
@@ -20,8 +20,8 @@ export class User extends BaseEntity {
   @Column('varchar')
   password: string;
 
-  @Column('varchar', { nullable: true })
-  birthday: string;
+  @Column({ name: 'birthday', type: 'date', nullable: false })
+  birthday: Date;
 
   @Column('varchar', { nullable: true })
   resetPasswordToken: string | null;

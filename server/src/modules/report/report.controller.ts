@@ -11,9 +11,9 @@ const ReportContoller = {
         text
       }).save();
 
-      res.json({ status: 200, report });
+      res.status(200).json({ status: 200, report });
     } catch (error) {
-      res.json({ status: 400, error });
+      res.status(400).json({ status: 400, error });
     }
   },
   async updateReport(req: Request, res: Response) {
@@ -28,27 +28,31 @@ const ReportContoller = {
         throw { msg: 'No report with that ID' };
       }
 
-      report.title = !title ? report.title : title.toLowerCase();
-      report.text = !text ? report.text : text.toLowerCase();
+      report.title = !title ? report.title : title;
+      report.text = !text ? report.text : text;
 
       const updatedReport = await Report.save(report);
 
-      res.json({ status: 200, report: { updatedReport } });
+      res.status(200).json({ status: 200, report: { updatedReport } });
     } catch (error) {
-      res.json({ status: 400, error });
+      res.status(400).json({ status: 400, error });
     }
   },
   async getReports(req: Request, res: Response) {
     try {
-      const reports = await Report.find();
+      const reports = await Report.find({
+        order: {
+          title: 'ASC'
+        }
+      });
 
       if (!reports) {
         throw { msg: 'No reports exists' };
       }
 
-      res.json({ status: 200, reports });
+      res.status(200).json({ status: 200, reports });
     } catch (error) {
-      res.json({ status: 400, error });
+      res.status(400).json({ status: 400, error });
     }
   },
   async singleReport(req: Request, res: Response) {
@@ -63,9 +67,28 @@ const ReportContoller = {
         throw { msg: 'No report exists' };
       }
 
-      res.json({ status: 200, report });
+      res.status(200).json({ status: 200, report });
     } catch (error) {
-      res.json({ status: 400, error });
+      res.status(400).json({ status: 400, error });
+    }
+  },
+  async deleteReport(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const report = await Report.findOne({
+        where: { id }
+      });
+
+      if (!report) {
+        throw { msg: 'No report exists' };
+      }
+
+      await Report.remove(report);
+
+      res.status(200).json({ status: 200 });
+    } catch (error) {
+      res.status(400).json({ status: 400, error });
     }
   }
 };
