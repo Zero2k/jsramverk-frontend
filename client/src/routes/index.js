@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Start from './Start';
 import ListReports from './Report/List';
-import ViewReport from './Report/View';
 import EditReport from './Report/Edit';
 import CreateReport from './Report/Create';
 import Auth from './Auth';
@@ -22,7 +21,6 @@ export default () => (
         <Public path="/" exact component={Start} />
         <Private path="/reports" exact component={ListReports} />
         <Private path="/reports/create" exact component={CreateReport} />
-        <Private path="/reports/week/:id" exact component={ViewReport} />
         <Private path="/reports/edit/:id" exact component={EditReport} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/forgot" exact component={RestPassword} />

@@ -78,7 +78,9 @@ const LoginForm = props => {
           onChange={handleChange}
           autoFocus
         />
-        {errors.email ? <div className={classes.validation}>{errors.email}</div> : null}
+        {errors.email ? (
+          <div className={classes.validation}>{errors.email}</div>
+        ) : null}
         {status && status.email ? (
           <div className={classes.validation}>{status.email}</div>
         ) : null}
@@ -95,12 +97,22 @@ const LoginForm = props => {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {errors.password && touched.password ? <div className={classes.validation}>{errors.password}</div> : null}
+        {errors.password && touched.password ? (
+          <div className={classes.validation}>{errors.password}</div>
+        ) : null}
         {status && status.password ? (
           <div className={classes.validation}>{status.password}</div>
         ) : null}
         <FormControlLabel
-          control={<Checkbox name="remember" value="remember" checked={values.remember} onChange={handleChange} color="primary" />}
+          control={
+            <Checkbox
+              name="remember"
+              value="remember"
+              checked={values.remember}
+              onChange={handleChange}
+              color="primary"
+            />
+          }
           label="Remember me"
         />
         <Button
@@ -142,15 +154,19 @@ export default withFormik({
 
   validationSchema: LoginSchema,
 
-  handleSubmit: async (values, { props, setSubmitting, setStatus, resetForm }) => {
-    const errors = await props.submit(values);
+  handleSubmit: async (
+    values,
+    { props, setSubmitting, setStatus, resetForm }
+  ) => {
+    const { deepLink, submit } = props;
+    const errors = await submit(values);
     if (errors) {
       setStatus(errors);
       setSubmitting(false);
     } else {
       setSubmitting(false);
-      resetForm()
-      props.onSuccess('/');
+      resetForm();
+      props.onSuccess(deepLink ? deepLink : '/');
     }
-  },
+  }
 })(LoginForm);

@@ -7,7 +7,8 @@ import formatError from '../utils/formatError';
 export const AuthStore = types
   .model('AuthStore', {
     authToken: types.maybe(types.string),
-    isAuthenticed: false
+    isAuthenticed: false,
+    error: types.maybe(types.string)
   })
   .views(self => ({
     get checkAuth() {
@@ -28,7 +29,7 @@ export const AuthStore = types
           }
         }
       } catch (error) {
-        console.log(error);
+        self.error = error.message;
       }
     }),
     signUp: flow(function*(username, email, password, date) {
@@ -48,7 +49,7 @@ export const AuthStore = types
           }
         }
       } catch (error) {
-        console.log(error);
+        self.error = error.message;
       }
     }),
     checkToken() {

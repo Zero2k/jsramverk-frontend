@@ -31,8 +31,16 @@ const styles = theme => ({
 
 @inject('authStore')
 class Auth extends React.Component {
+  componentDidMount() {
+    const { state } = this.props.location.state || {};
+    if (state) {
+      this.setState({ deepLink: state.deepLink });
+    }
+  }
+
   state = {
-    login: true
+    login: true,
+    deepLink: ''
   };
 
   toggle = () => {
@@ -59,7 +67,7 @@ class Auth extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { login } = this.state;
+    const { login, deepLink } = this.state;
 
     return (
       <Grid container component="main" className={classes.root}>
@@ -75,6 +83,7 @@ class Auth extends React.Component {
               <LoginForm
                 toggle={this.toggle}
                 submit={this.handleLogin}
+                deepLink={deepLink}
                 onSuccess={this.redirect}
               />
             ) : (
