@@ -4,10 +4,9 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as cors from 'cors';
+import routes from './modules';
 
 import db from './utils/db';
-
-import apiRoutes from './modules';
 
 const createServer = async () => {
   const app = express();
@@ -21,22 +20,18 @@ const createServer = async () => {
     })
   );
 
-  apiRoutes(app);
-
   await db();
+
+  app.use('/api/v1', routes);
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../../client/build')));
     app.use('*', express.static(path.join(__dirname, '../../client/build')));
   }
 
-  const PORT = process.env.PORT || 4000;
+  const PORT = <string>process.env.PORT || 4000;
 
-  app.listen(PORT, err => {
-    if (err) {
-      console.log(err);
-    }
-
+  app.listen(PORT, () => {
     console.log(`🚀 Server ready at http://localhost:${PORT}`);
   });
 };

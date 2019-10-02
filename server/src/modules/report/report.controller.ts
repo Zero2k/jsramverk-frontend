@@ -38,7 +38,7 @@ const ReportContoller = {
       res.status(400).json({ status: 400, error });
     }
   },
-  async getReports(req: Request, res: Response) {
+  async getReports(_req: Request, res: Response) {
     try {
       const reports = await Report.find({
         order: {

@@ -7,7 +7,7 @@ interface Payload {
   };
 }
 
-const createToken = user => {
+const createToken = (user: any) => {
   if (!user && !user.id) {
     return null;
   }
@@ -18,10 +18,10 @@ const createToken = user => {
     }
   };
 
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
+  return jwt.sign(payload, <string>process.env.JWT_SECRET, { expiresIn: '1d' });
 };
 
-const verifyToken = token => {
+const verifyToken = (token: string) => {
   return jwt.verify(token, <string>process.env.JWT_SECRET);
 };
 
@@ -30,7 +30,7 @@ const getTokenFromHeaders = async (req: Request): Promise<Payload | null> => {
 
   if (token) {
     try {
-      const user = verifyToken(token);
+      const user: any = verifyToken(token);
       return user;
     } catch (err) {
       return null;

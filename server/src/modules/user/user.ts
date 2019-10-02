@@ -12,7 +12,8 @@ export const userAuth = async (
   if (!token) {
     req.user = null;
 
-    return res.sendStatus(401);
+    res.status(401).send();
+    return;
   }
 
   const user = await User.findOne({
@@ -22,10 +23,11 @@ export const userAuth = async (
   if (!user) {
     req.user = null;
 
-    return res.sendStatus(401);
+    res.status(401).send();
+    return;
   }
 
   req.user = user;
 
-  return next();
+  next();
 };
