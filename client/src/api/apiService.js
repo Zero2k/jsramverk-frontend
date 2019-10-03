@@ -1,6 +1,9 @@
 import wretch from 'wretch';
 
-const API_ROOT = 'http://localhost:4000/api/v1';
+const API_ROOT =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_BACKEND_HOST
+    : 'http://localhost:4000/api/v1';
 
 const externalApi = wretch()
   // Set the base url

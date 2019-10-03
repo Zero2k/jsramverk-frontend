@@ -1,17 +1,21 @@
 import { getConnectionOptions, createConnection } from 'typeorm';
-import { User } from '../entity/User';
-import { Report } from '../entity/Report';
 
-const db = async () => {
-  try {
-    const connectionOptions = await getConnectionOptions();
-    await createConnection({
-      ...connectionOptions,
-      entities: [User, Report],
-      name: 'default'
-    });
-  } catch (err) {
-    console.log(err);
+export const db = async (retry = 10) => {
+  while (retry) {
+    try {
+      const connectionOptions = await getConnectionOptions();
+      process.env.NODE_ENV === 'production'
+        ? await createConnection({
+            ...connectionOptions,
+            url: process.env.DATABASE_URL
+          } as any)
+        : await createConnection({ ...connectionOptions });
+      break;
+    } catch (err) {
+      console.log(err);
+      retry -= 1;
+      await new Promise(res => setTimeout(res, 10000));
+    }
   }
 };
 

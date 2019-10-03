@@ -16,7 +16,10 @@ const createServer = async () => {
   app.use(
     cors({
       credentials: true,
-      origin: process.env.FRONTEND_HOST
+      origin:
+        process.env.NODE_ENV === 'production'
+          ? process.env.FRONTEND_HOST
+          : 'http://localhost:3000'
     })
   );
 
@@ -25,8 +28,8 @@ const createServer = async () => {
   app.use('/api/v1', routes);
 
   if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../../client/build')));
-    app.use('*', express.static(path.join(__dirname, '../../client/build')));
+    app.use(express.static(path.join(__dirname, '../client/build')));
+    app.use('*', express.static(path.join(__dirname, '../client/build')));
   }
 
   const PORT = <string>process.env.PORT || 4000;
