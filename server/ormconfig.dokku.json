@@ -1,4 +1,5 @@
 {
+  "name": "production",
   "type": "postgres",
   "synchronize": true,
   "logging": false,
