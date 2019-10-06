@@ -11,11 +11,10 @@ const post = (url: string, body: any, token: any = null) => {
   return httpRequest;
 };
 
-const get = (url: string, body: any, token: any = null) => {
+const get = (url: string, token: any = null) => {
   const httpRequest = request(app).get(`${BASE_URL}${url}`);
   httpRequest.set('Accept', 'application/json');
   httpRequest.set({ Authorization: token });
-  httpRequest.send(body);
   return httpRequest;
 };
 
