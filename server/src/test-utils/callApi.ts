@@ -18,4 +18,12 @@ const get = (url: string, token: any = null) => {
   return httpRequest;
 };
 
-export { post, get };
+const put = (url: string, body: any, token: any = null) => {
+  const httpRequest = request(app).put(`${BASE_URL}${url}`);
+  httpRequest.set('Accept', 'application/json');
+  httpRequest.set({ Authorization: token });
+  httpRequest.send(body);
+  return httpRequest;
+};
+
+export { post, get, put };

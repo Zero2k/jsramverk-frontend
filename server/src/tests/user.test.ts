@@ -1,9 +1,9 @@
 import { Connection } from 'typeorm';
 import * as faker from 'faker';
 
-import db from '../../test-utils/db';
-import { User } from '../../entity/User';
-import { post, get } from '../../test-utils/callApi';
+import db from '../test-utils/db';
+import { User } from '../entity/User';
+import { post, get } from '../test-utils/callApi';
 
 let conn: Connection;
 
@@ -24,7 +24,6 @@ describe('Test user / auth', () => {
     };
 
     const response = await post('users/signup', user);
-    console.log(response);
 
     expect(response).toMatchObject({
       body: {

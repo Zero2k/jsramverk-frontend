@@ -33,7 +33,7 @@ const ReportContoller = {
 
       const updatedReport = await Report.save(report);
 
-      res.status(200).json({ status: 200, report: { updatedReport } });
+      res.status(200).json({ status: 200, report: updatedReport });
     } catch (error) {
       res.status(400).json({ status: 400, error });
     }
@@ -46,7 +46,7 @@ const ReportContoller = {
         }
       });
 
-      if (!reports) {
+      if (reports.length < 1) {
         throw { msg: 'No reports exists' };
       }
 
