@@ -19,4 +19,4 @@ before_script:
   - cp ormconfig.travis.json ormconfig.json
   - cd ..
 
-script: cd $TEST_DIR && yarn && yarn travis
+script: cd $TEST_DIR && yarn && yarn test

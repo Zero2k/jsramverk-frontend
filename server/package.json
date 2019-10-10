@@ -39,7 +39,6 @@
     "prod": "NODE_ENV=production node dist/index.js",
     "db:test": "NODE_ENV=test ts-node src/test-utils/testDb.ts",
     "test": "npm run db:test && jest --watch",
-    "travis": "NODE_ENV=test jest",
     "coverage": "jest --coverage"
   }
 }
