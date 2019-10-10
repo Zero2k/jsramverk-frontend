@@ -9,13 +9,8 @@
     "password": "admin",
     "database": "test",
     "synchronize": true,
-    "entities": ["dist/entity/**/*"],
-    "migrations": ["dist/migration/**/*"],
-    "subscribers": ["dist/subscriber/**/*"],
-    "cli": {
-      "entitiesDir": "dist/entity",
-      "migrationsDir": "dist/migration",
-      "subscribersDir": "dist/subscriber"
-    }
+    "entities": ["src/entity/**/*.ts"],
+    "migrations": ["src/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"]
   }
 ]
