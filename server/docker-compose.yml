@@ -8,6 +8,6 @@ services:
       - '3306:3306'
     environment:
       POSTGRES_ROOT_PASSWORD: 'admin'
-      POSTGRES_USER: 'test'
-      POSTGRES_PASSWORD: 'test'
-      POSTGRES_DATABASE: 'test'
+      POSTGRES_USER: 'root'
+      POSTGRES_PASSWORD: '12345'
+      POSTGRES_DATABASE: 'ramverk2_test'
