@@ -1,13 +1,13 @@
 version: '3'
 services:
-  # postgres
-  postgres:
-    image: 'postgres'
-    container_name: 'typeorm-postgres'
+  # mysql
+  mysql:
+    image: 'mysql:latest'
+    container_name: 'typeorm-mysql'
     ports:
       - '3306:3306'
     environment:
-      POSTGRES_ROOT_PASSWORD: 'admin'
-      POSTGRES_USER: 'root'
-      POSTGRES_PASSWORD: '12345'
-      POSTGRES_DATABASE: 'ramverk2_test'
+      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: '12345'
+      MYSQL_DATABASE: 'ramverk2_test'
