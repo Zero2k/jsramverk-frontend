@@ -8,7 +8,7 @@ import { post, get, put } from '../test-utils/callApi';
 let conn: Connection;
 
 beforeAll(async () => {
-  conn = await db();
+  conn = await db(true);
 });
 afterAll(async () => {
   if (typeof conn !== 'undefined') {
