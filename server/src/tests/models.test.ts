@@ -14,6 +14,7 @@ beforeAll(async () => {
   connection = await createConnection({
     ...connectionOptions,
     name: 'default',
+    entities: [User],
     dropSchema: true
   });
 });
