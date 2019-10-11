@@ -9,8 +9,6 @@ export const db = async (drop: boolean = false) => {
     dropSchema: drop
   } as any);
 
-  console.log(database);
-
   return database;
 };
 

@@ -1,19 +1,25 @@
-import { Connection } from 'typeorm';
+import { Connection, createConnection, getConnectionOptions } from 'typeorm';
 import * as faker from 'faker';
 
-import db from '../test-utils/db';
 import { User } from '../entity/User';
 import { post, get, put } from '../test-utils/callApi';
 
-let conn: Connection;
+let connection: Connection;
 
 beforeAll(async () => {
-  conn = await db(true);
+  const connectionOptions = await getConnectionOptions(
+    process.env.NODE_ENV
+  );
+
+  connection = await createConnection({
+    ...connectionOptions,
+    name: 'default',
+    dropSchema: true
+  });
 });
 afterAll(async () => {
-  if (typeof conn !== 'undefined') {
-    await conn.close();
-  }
+  if (connection && connection.isConnected) 
+    return connection.close();
 });
 
 describe('Test user / auth', () => {
