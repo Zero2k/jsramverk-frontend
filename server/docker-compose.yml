@@ -11,3 +11,4 @@ services:
       MYSQL_USER: 'root'
       MYSQL_PASSWORD: '12345'
       MYSQL_DATABASE: 'ramverk2_test'
+      MYSQL_HOSTNAME: mysql
