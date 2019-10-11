@@ -9,6 +9,7 @@ let conn: Connection;
 
 beforeAll(async () => {
   conn = await db(true);
+  console.log(conn.isConnected);
 });
 afterAll(async () => {
   if (typeof conn !== 'undefined') {
