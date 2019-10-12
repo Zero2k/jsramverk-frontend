@@ -2,25 +2,23 @@ import { Connection, createConnection, getConnectionOptions } from 'typeorm';
 import * as faker from 'faker';
 
 import { User } from '../entity/User';
+import { Report } from '../entity/Report';
 import { post, get, put } from '../test-utils/callApi';
 
 let connection: Connection;
 
 beforeAll(async () => {
-  const connectionOptions = await getConnectionOptions(
-    process.env.NODE_ENV
-  );
+  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
 
   connection = await createConnection({
     ...connectionOptions,
     name: 'default',
-    entities: [User],
+    entities: [User, Report],
     dropSchema: true
   });
 });
 afterAll(async () => {
-  if (connection && connection.isConnected) 
-    return connection.close();
+  if (connection && connection.isConnected) return connection.close();
 });
 
 describe('Test user / auth', () => {
