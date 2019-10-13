@@ -10,9 +10,9 @@ beforeAll(async () => {
   try {
     connection = await createConnection({
       ...connectionOptions,
-      name: 'default',
       entities: [User, Report],
-      dropSchema: true
+      dropSchema: true,
+      name: 'default'
     });
   } catch (error) {
     console.log('Error', error);

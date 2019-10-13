@@ -20,4 +20,4 @@ before_script:
   - cd ..
 
 script:
-  - cd $TEST_DIR && yarn && sleep 30 && yarn travis
+  - cd $TEST_DIR && yarn && sleep 50 && yarn travis
