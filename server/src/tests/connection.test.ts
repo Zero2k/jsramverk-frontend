@@ -17,7 +17,7 @@ beforeAll(async () => {
       password: 'test',
       database: 'test',
       synchronize: true,
-      entities: [join(__dirname, '../entity/{.ts,.js}')],
+      entities: [join(__dirname, '../entity/*{.ts,.js}')],
       dropSchema: true
     });
   } catch (error) {
