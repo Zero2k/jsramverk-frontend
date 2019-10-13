@@ -30,7 +30,18 @@ describe('Connection', () => {
     expect(connection.isConnected).toBe(true);
   });
 
-  it('check if User entity exists', async () => {
+  it('check Report', async () => {
+    const reportRepository = connection.getRepository(Report);
+
+    let newReport = new Report();
+    newReport.title = 'title';
+    newReport.text = 'text';
+    const savedPost = await reportRepository.save(newReport);
+
+    expect(savedPost).toBeDefined();
+  });
+
+  /* it('check if User entity exists', async () => {
     const user = {
       username: 'test',
       email: 'test@test.com',
@@ -56,5 +67,5 @@ describe('Connection', () => {
     const newReport = await Report.findOne({ where: { title: report.title } });
 
     expect(newReport).toBeDefined();
-  });
+  }); */
 });
