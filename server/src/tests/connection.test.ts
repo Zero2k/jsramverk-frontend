@@ -1,18 +1,24 @@
-import { Connection, createConnection, getConnectionOptions } from 'typeorm';
+import { Connection, createConnection } from 'typeorm';
 import { User } from '../entity/User';
 import { Report } from '../entity/Report';
 
 let connection: Connection;
 
 beforeAll(async () => {
-  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
+  /* const connectionOptions = await getConnectionOptions(process.env.NODE_ENV); */
 
   try {
     connection = await createConnection({
-      ...connectionOptions,
+      name: 'default',
+      type: 'postgres',
+      host: 'localhost',
+      port: 3306,
+      username: 'test',
+      password: 'test',
+      database: 'test',
+      synchronize: true,
       entities: [User, Report],
-      dropSchema: true,
-      name: 'default'
+      dropSchema: true
     });
   } catch (error) {
     console.log('Error', error);
