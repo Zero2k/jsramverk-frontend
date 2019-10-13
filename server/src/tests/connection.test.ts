@@ -5,7 +5,7 @@ import { Report } from '../entity/Report';
 let connection: Connection;
 
 beforeAll(async () => {
-  const connectionOptions = await getConnectionOptions();
+  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
 
   try {
     connection = await createConnection({

@@ -6,7 +6,7 @@ import {
   CreateDateColumn
 } from 'typeorm';
 
-@Entity()
+@Entity('reports')
 export class Report extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
