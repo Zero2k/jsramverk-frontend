@@ -1,6 +1,7 @@
 import { Connection, createConnection } from 'typeorm';
 import { User } from '../entity/User';
 import { Report } from '../entity/Report';
+import { join } from 'path';
 
 let connection: Connection;
 
@@ -9,7 +10,6 @@ beforeAll(async () => {
 
   try {
     connection = await createConnection({
-      name: 'default',
       type: 'postgres',
       host: 'localhost',
       port: 3306,
@@ -17,7 +17,7 @@ beforeAll(async () => {
       password: 'test',
       database: 'test',
       synchronize: true,
-      entities: [User, Report],
+      entities: [join(__dirname, '../entity/{.ts,.js}')],
       dropSchema: true
     });
   } catch (error) {
