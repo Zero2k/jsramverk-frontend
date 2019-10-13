@@ -7,12 +7,16 @@ let connection: Connection;
 beforeAll(async () => {
   const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
 
-  connection = await createConnection({
-    ...connectionOptions,
-    name: 'default',
-    entities: [User, Report],
-    dropSchema: true
-  });
+  try {
+    connection = await createConnection({
+      ...connectionOptions,
+      name: 'default',
+      entities: [User, Report],
+      dropSchema: true
+    });
+  } catch (error) {
+    console.log('Error', error);
+  }
 });
 afterAll(async () => {
   if (connection && connection.isConnected) return connection.close();
