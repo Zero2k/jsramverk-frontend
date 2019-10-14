@@ -8,7 +8,7 @@ build:
         postgres: 10
 
       environment:
-        node: v9.2.0
+        node: v10
       project_setup:
         before:
           - command: yarn
