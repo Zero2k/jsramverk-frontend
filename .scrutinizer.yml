@@ -1,0 +1,43 @@
+build:
+  nodes:
+    backend:
+      root_path: './server'
+
+      services:
+        # For available tags, see https://hub.docker.com/_/postgres/
+        postgres: 10
+
+      environment:
+        postgres: '10'
+        node: v9.2.0
+      project_setup:
+        before:
+          - command: yarn
+      tests:
+        override:
+          - command: 'yarn scrutinizer'
+            coverage:
+              file: 'coverage/clover.xml'
+              format: 'clover'
+    #
+    # frontend:
+    #  root_path: './client'
+    #  project_setup:
+    #    before:
+    #      - command: yarn
+    #  tests:
+    #    override:
+    #      - command: 'yarn test'
+    #
+
+filter:
+  excluded_paths:
+    - 'coverage'
+    - 'dist'
+    - 'node_modules'
+    - 'tests'
+
+checks:
+  javascript:
+    code_rating: true
+    duplicate_code: true

@@ -31,5 +31,19 @@
     "entities": ["src/entity/**/*.ts"],
     "migrations": ["src/migration/**/*.ts"],
     "subscribers": ["src/subscriber/**/*.ts"]
+  },
+  {
+    "name": "scrutinizer",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "scrutinizer",
+    "password": "scrutinizer",
+    "database": "scrutinizer",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["src/entity/**/*.ts"],
+    "migrations": ["src/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"]
   }
 ]

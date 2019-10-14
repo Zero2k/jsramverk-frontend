@@ -30,7 +30,7 @@
     "pg": "^7.3.0",
     "reflect-metadata": "^0.1.10",
     "rimraf": "^3.0.0",
-    "typeorm": "0.2.14",
+    "typeorm": "^0.2.19",
     "yup": "^0.27.0"
   },
   "scripts": {
@@ -40,6 +40,7 @@
     "db:test": "NODE_ENV=test ts-node src/test-utils/testDb.ts",
     "test": "npm run db:test && jest --watch",
     "travis": "NODE_ENV=test jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "scrutinizer": "NODE_ENV=scrutinizer jest --coverage"
   }
 }

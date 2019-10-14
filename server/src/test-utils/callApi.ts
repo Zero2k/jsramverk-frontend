@@ -26,4 +26,11 @@ const put = (url: string, body: any, token: any = null) => {
   return httpRequest;
 };
 
-export { post, get, put };
+const del = (url: string, token: any = null) => {
+  const httpRequest = request(app).del(`${BASE_URL}${url}`);
+  httpRequest.set('Accept', 'application/json');
+  httpRequest.set({ Authorization: token });
+  return httpRequest;
+};
+
+export { post, get, put, del };

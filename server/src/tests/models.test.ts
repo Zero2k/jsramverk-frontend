@@ -1,21 +1,19 @@
-import { Connection, createConnection, getConnectionOptions } from 'typeorm';
+import { Connection } from 'typeorm';
 import * as faker from 'faker';
 
 import { User } from '../entity/User';
 import { Report } from '../entity/Report';
-import { post, get, put } from '../test-utils/callApi';
+import { post, get, put, del } from '../test-utils/callApi';
+import db from '../test-utils/db';
 
 let connection: Connection;
 
 beforeAll(async () => {
-  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
-
-  connection = await createConnection({
-    ...connectionOptions,
-    name: 'default',
-    entities: [User, Report],
-    dropSchema: true
-  });
+  try {
+    connection = await db(true);
+  } catch (error) {
+    console.log('Error', error);
+  }
 });
 afterAll(async () => {
   if (connection && connection.isConnected) return connection.close();
@@ -347,6 +345,79 @@ describe('Test reports', () => {
       body: {
         status: 200,
         reports: expect.any(Array)
+      }
+    });
+  });
+
+  it('return no reports', async () => {
+    const loginUser = {
+      email: 'report@test.com',
+      password: 'testtest11'
+    };
+
+    const user = await post('users/login', loginUser);
+
+    const {
+      body: { token }
+    } = user;
+
+    const response = await get('/reports/12345', token);
+
+    expect(response).toMatchObject({
+      body: {
+        status: 400,
+        error: {
+          msg: 'No report exists'
+        }
+      }
+    });
+  });
+
+  it('return a single report', async () => {
+    const loginUser = {
+      email: 'report@test.com',
+      password: 'testtest11'
+    };
+
+    const user = await post('users/login', loginUser);
+
+    const {
+      body: { token }
+    } = user;
+
+    const reports = await Report.find();
+    const reportId = reports[0].id;
+
+    const response = await get(`/reports/${reportId}`, token);
+
+    expect(response).toMatchObject({
+      body: {
+        status: 200,
+        report: expect.any(Object)
+      }
+    });
+  });
+
+  it('delete report', async () => {
+    const loginUser = {
+      email: 'report@test.com',
+      password: 'testtest11'
+    };
+
+    const user = await post('users/login', loginUser);
+
+    const {
+      body: { token }
+    } = user;
+
+    const reports = await Report.find();
+    const reportId = reports[0].id;
+
+    const response = await del(`/reports/delete/${reportId}`, token);
+
+    expect(response).toMatchObject({
+      body: {
+        status: 200
       }
     });
   });
