@@ -1,20 +1,15 @@
 import 'reflect-metadata';
-import { Connection, createConnection, getConnectionOptions } from 'typeorm';
+import { Connection } from 'typeorm';
 import { User } from '../entity/User';
 import { Report } from '../entity/Report';
+
+import db from '../test-utils/db';
 
 let connection: Connection;
 
 beforeAll(async () => {
-  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
-
   try {
-    connection = await createConnection({
-      ...connectionOptions,
-      entities: [User, Report],
-      name: 'default',
-      dropSchema: true
-    });
+    connection = await db(true);
   } catch (error) {
     console.log('Error', error);
   }
@@ -30,18 +25,7 @@ describe('Connection', () => {
     expect(connection.isConnected).toBe(true);
   });
 
-  it('check Report', async () => {
-    const reportRepository = connection.getRepository(Report);
-
-    let newReport = new Report();
-    newReport.title = 'title';
-    newReport.text = 'text';
-    const savedPost = await reportRepository.save(newReport);
-
-    expect(savedPost).toBeDefined();
-  });
-
-  /* it('check if User entity exists', async () => {
+  it('check if User entity exists', async () => {
     const user = {
       username: 'test',
       email: 'test@test.com',
@@ -67,5 +51,5 @@ describe('Connection', () => {
     const newReport = await Report.findOne({ where: { title: report.title } });
 
     expect(newReport).toBeDefined();
-  }); */
+  });
 });

@@ -16,8 +16,9 @@ before_script:
   - sudo service mysql stop
   - sudo service postgresql stop
   - cd server && docker-compose up -d
+  - sleep 60
   - cp ormconfig.travis.json ormconfig.json
   - cd ..
 
 script:
-  - cd $TEST_DIR && yarn && sleep 50 && yarn travis
+  - cd $TEST_DIR && yarn && yarn travis
