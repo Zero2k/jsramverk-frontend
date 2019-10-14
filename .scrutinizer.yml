@@ -8,7 +8,6 @@ build:
         postgres: 10
 
       environment:
-        postgres: '10'
         node: v9.2.0
       project_setup:
         before:
