@@ -1,11 +1,12 @@
 build:
   nodes:
-    backend:
-      root_path: './server'
-
+    postgres:
       services:
         # For available tags, see https://hub.docker.com/_/postgres/
         postgres: 10
+
+    backend:
+      root_path: './server'
 
       environment:
         node: v10
