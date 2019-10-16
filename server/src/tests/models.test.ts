@@ -1,7 +1,7 @@
 import { Connection } from 'typeorm';
 import * as faker from 'faker';
 
-import { User } from '../entity/User';
+/* import { User } from '../entity/User'; */
 /* import { Report } from '../entity/Report'; */
 import { post, put } from '../test-utils/callApi';
 import db from '../test-utils/db';
@@ -20,7 +20,7 @@ afterAll(async () => {
 });
 
 describe('Test user / auth', () => {
-  it('create new user', async () => {
+  /* it('create new user', async () => {
     const user = {
       username: faker.internet.userName(),
       email: 'test@test.com',
@@ -42,8 +42,7 @@ describe('Test user / auth', () => {
     expect(newUser).toBeDefined();
     expect(newUser!.username).toBe(user.username);
     expect(newUser!.email).toBe(user.email);
-  });
-
+  }); */
   /* it('create new user with same email', async () => {
     const user = {
       username: faker.internet.userName(),
@@ -64,8 +63,7 @@ describe('Test user / auth', () => {
       }
     });
   }); */
-
-  it('login with wrong email', async () => {
+  /* it('login with wrong email', async () => {
     const user = {
       email: 'test2@test.com',
       password: 'testtest12'
@@ -82,9 +80,8 @@ describe('Test user / auth', () => {
         }
       }
     });
-  });
-
-  it('login with wrong password', async () => {
+  }); */
+  /* it('login with wrong password', async () => {
     const user = {
       email: 'test@test.com',
       password: 'testtest12'
@@ -101,9 +98,8 @@ describe('Test user / auth', () => {
         }
       }
     });
-  });
-
-  it('login with short password', async () => {
+  }); */
+  /* it('login with short password', async () => {
     const user = {
       email: 'test@test.com',
       password: 'testtes'
@@ -119,8 +115,7 @@ describe('Test user / auth', () => {
         }
       }
     });
-  });
-
+  }); */
   /* it('login user', async () => {
     const user = {
       email: 'test@test.com',
@@ -135,7 +130,6 @@ describe('Test user / auth', () => {
       }
     });
   }); */
-
   /* it('user authenticated', async () => {
     const user = {
       email: 'test@test.com',
@@ -202,7 +196,7 @@ describe('Test reports', () => {
     });
   }); */
 
-  /* it('try create report authorized', async () => {
+  it('try create report authorized', async () => {
     const createUser = {
       username: faker.internet.userName(),
       email: 'report@test.com',
@@ -239,7 +233,7 @@ describe('Test reports', () => {
         status: 200
       }
     });
-  }); */
+  });
 
   it('update report', async () => {
     const loginUser = {
