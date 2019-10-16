@@ -29,6 +29,7 @@ describe('Test user / auth', () => {
     };
 
     const response = await post('users/signup', user);
+    console.log(response);
 
     expect(response).toMatchObject({
       body: {
