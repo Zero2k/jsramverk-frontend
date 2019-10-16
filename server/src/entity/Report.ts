@@ -8,7 +8,7 @@ import {
 
 @Entity()
 export class Report extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column('varchar')
