@@ -43,7 +43,7 @@ describe('Test user / auth', () => {
     expect(newUser!.email).toBe(user.email);
   }); */
 
-  it('create new user with same email', async () => {
+  /* it('create new user with same email', async () => {
     const user = {
       username: faker.internet.userName(),
       email: 'test@test.com',
@@ -62,7 +62,7 @@ describe('Test user / auth', () => {
         }
       }
     });
-  });
+  }); */
 
   it('login with wrong email', async () => {
     const user = {
@@ -120,7 +120,7 @@ describe('Test user / auth', () => {
     });
   });
 
-  it('login user', async () => {
+  /* it('login user', async () => {
     const user = {
       email: 'test@test.com',
       password: 'testtest11'
@@ -133,9 +133,9 @@ describe('Test user / auth', () => {
         status: 200
       }
     });
-  });
+  }); */
 
-  it('user authenticated', async () => {
+  /* it('user authenticated', async () => {
     const user = {
       email: 'test@test.com',
       password: 'testtest11'
@@ -153,7 +153,7 @@ describe('Test user / auth', () => {
         email: user.email
       }
     });
-  });
+  }); */
 });
 
 describe('Test reports', () => {
