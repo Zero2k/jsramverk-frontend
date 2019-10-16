@@ -3,7 +3,7 @@ import * as faker from 'faker';
 
 /* import { User } from '../entity/User';
 import { Report } from '../entity/Report'; */
-import { post, get, put, del } from '../test-utils/callApi';
+import { post, get, put } from '../test-utils/callApi';
 import db from '../test-utils/db';
 
 let connection: Connection;
