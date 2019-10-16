@@ -1,8 +1,8 @@
 import { Connection } from 'typeorm';
 import * as faker from 'faker';
 
-/* import { User } from '../entity/User';
-import { Report } from '../entity/Report'; */
+import { User } from '../entity/User';
+/* import { Report } from '../entity/Report'; */
 import { post, put } from '../test-utils/callApi';
 import db from '../test-utils/db';
 
@@ -20,7 +20,7 @@ afterAll(async () => {
 });
 
 describe('Test user / auth', () => {
-  /* it('create new user', async () => {
+  it('create new user', async () => {
     const user = {
       username: faker.internet.userName(),
       email: 'test@test.com',
@@ -41,7 +41,7 @@ describe('Test user / auth', () => {
     expect(newUser).toBeDefined();
     expect(newUser!.username).toBe(user.username);
     expect(newUser!.email).toBe(user.email);
-  }); */
+  });
 
   /* it('create new user with same email', async () => {
     const user = {
