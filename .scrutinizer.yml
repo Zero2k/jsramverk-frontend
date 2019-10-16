@@ -19,16 +19,15 @@ build:
             coverage:
               file: 'coverage/clover.xml'
               format: 'clover'
-    #
-    # frontend:
-    #  root_path: './client'
-    #  project_setup:
-    #    before:
-    #      - command: yarn
-    #  tests:
-    #    override:
-    #      - command: 'yarn test'
-    #
+
+    frontend:
+      root_path: './client'
+      project_setup:
+        before:
+          - command: yarn
+      tests:
+        override:
+          - command: 'yarn test'
 
 filter:
   excluded_paths:

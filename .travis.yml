@@ -6,7 +6,7 @@ node_js:
   - '8'
 
 services:
-  - docker
+  - postgresql
 
 env:
   - TEST_DIR=server
@@ -14,8 +14,8 @@ env:
 
 before_script:
   - sudo service mysql stop
-  - sudo service postgresql stop
-  - cd server && docker-compose up -d
+  - psql -c "CREATE DATABASE travis_ci_test;" -U postgres
+  - psql -c "CREATE USER test WITH PASSWORD 'test';" -U postgres
   - sleep 60
   - cp ormconfig.travis.json ormconfig.json
   - cd ..
