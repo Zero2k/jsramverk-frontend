@@ -1,8 +1,8 @@
 import { Connection } from 'typeorm';
 import * as faker from 'faker';
 
-import { User } from '../entity/User';
-import { Report } from '../entity/Report';
+/* import { User } from '../entity/User';
+import { Report } from '../entity/Report'; */
 import { post, get, put, del } from '../test-utils/callApi';
 import db from '../test-utils/db';
 
@@ -20,7 +20,7 @@ afterAll(async () => {
 });
 
 describe('Test user / auth', () => {
-  it('create new user', async () => {
+  /* it('create new user', async () => {
     const user = {
       username: faker.internet.userName(),
       email: 'test@test.com',
@@ -41,7 +41,7 @@ describe('Test user / auth', () => {
     expect(newUser).toBeDefined();
     expect(newUser!.username).toBe(user.username);
     expect(newUser!.email).toBe(user.email);
-  });
+  }); */
 
   it('create new user with same email', async () => {
     const user = {
@@ -168,7 +168,7 @@ describe('Test reports', () => {
     expect(status).toBe(401);
   });
 
-  it('try return list of reports', async () => {
+  /* it('try return list of reports', async () => {
     const createUser = {
       username: faker.internet.userName(),
       email: 'report@test.com',
@@ -199,9 +199,9 @@ describe('Test reports', () => {
         }
       }
     });
-  });
+  }); */
 
-  it('try create report authorized', async () => {
+  /* it('try create report authorized', async () => {
     const createUser = {
       username: faker.internet.userName(),
       email: 'report@test.com',
@@ -238,7 +238,7 @@ describe('Test reports', () => {
         status: 200
       }
     });
-  });
+  }); */
 
   it('update report', async () => {
     const loginUser = {
@@ -327,7 +327,7 @@ describe('Test reports', () => {
     }
   });
 
-  it('return list of reports', async () => {
+  /* it('return list of reports', async () => {
     const loginUser = {
       email: 'report@test.com',
       password: 'testtest11'
@@ -347,9 +347,9 @@ describe('Test reports', () => {
         reports: expect.any(Array)
       }
     });
-  });
+  }); */
 
-  it('return no reports', async () => {
+  /* it('return no reports', async () => {
     const loginUser = {
       email: 'report@test.com',
       password: 'testtest11'
@@ -371,9 +371,9 @@ describe('Test reports', () => {
         }
       }
     });
-  });
+  }); */
 
-  it('return a single report', async () => {
+  /* it('return a single report', async () => {
     const loginUser = {
       email: 'report@test.com',
       password: 'testtest11'
@@ -396,9 +396,9 @@ describe('Test reports', () => {
         report: expect.any(Object)
       }
     });
-  });
+  }); */
 
-  it('delete report', async () => {
+  /* it('delete report', async () => {
     const loginUser = {
       email: 'report@test.com',
       password: 'testtest11'
@@ -420,5 +420,5 @@ describe('Test reports', () => {
         status: 200
       }
     });
-  });
+  }); */
 });
