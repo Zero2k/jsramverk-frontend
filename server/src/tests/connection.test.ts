@@ -10,10 +10,10 @@ chai.use(chaiHttp);
 let connection: Connection;
 
 describe('Connection', () => {
-  beforeAll(async () => {
+  before(async () => {
     connection = await db(true);
   });
-  afterAll(async () => {
+  after(async () => {
     if (connection && connection.isConnected) return connection.close();
   });
 
