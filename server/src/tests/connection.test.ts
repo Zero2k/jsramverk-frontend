@@ -1,27 +1,50 @@
-import * as chai from 'chai';
-import chaiHttp = require('chai-http');
-import 'mocha';
 import { Connection } from 'typeorm';
+import { User } from '../entity/User';
+import { Report } from '../entity/Report';
 
 import db from '../test-utils/db';
 
-chai.use(chaiHttp);
-
 let connection: Connection;
 
+beforeAll(async () => {
+  connection = await db(true);
+});
+afterAll(async () => {
+  if (connection && connection.isConnected) return connection.close();
+});
+
 describe('Connection', () => {
-  before(async () => {
-    connection = await db(true);
-  });
-  after(async () => {
-    if (connection && connection.isConnected) return connection.close();
+  it('connection.isConnected should be true', () => {
+    if (!connection) return;
+
+    expect(connection.isConnected).toBe(true);
   });
 
-  describe('connect to database', () => {
-    it('connection.isConnected should be true', () => {
-      if (!connection) return;
+  it('check if User entity exists', async () => {
+    const user = {
+      username: 'test',
+      email: 'test@test.com',
+      password: 'testtest11',
+      birthday: '2019-09-29'
+    };
 
-      chai.expect(connection.isConnected).to.be.true;
-    });
+    await User.create(user).save();
+
+    const newUser = await User.findOne({ where: { email: user.email } });
+
+    expect(newUser).toBeDefined();
+  });
+
+  it('check if Report entity exists', async () => {
+    const report = {
+      title: 'title',
+      text: 'text'
+    };
+
+    await Report.create(report).save();
+
+    const newReport = await Report.findOne({ where: { title: report.title } });
+
+    expect(newReport).toBeDefined();
   });
 });

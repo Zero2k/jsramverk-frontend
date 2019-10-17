@@ -1,19 +1,15 @@
-/* import { Connection } from 'typeorm';
+import { Connection } from 'typeorm';
 import * as faker from 'faker';
 
 import { User } from '../entity/User';
 import { Report } from '../entity/Report';
-import { post, put } from '../test-utils/callApi';
+import { post, put, get, del } from '../test-utils/callApi';
 import db from '../test-utils/db';
 
 let connection: Connection;
 
 beforeAll(async () => {
-  try {
-    connection = await db(true);
-  } catch (error) {
-    console.log('Error', error);
-  }
+  connection = await db(true);
 });
 afterAll(async () => {
   if (connection && connection.isConnected) return connection.close();
@@ -29,7 +25,6 @@ describe('Test user / auth', () => {
     };
 
     const response = await post('users/signup', user);
-    console.log(response);
 
     expect(response).toMatchObject({
       body: {
@@ -413,4 +408,3 @@ describe('Test reports', () => {
     });
   });
 });
- */

@@ -22,6 +22,7 @@ build:
 
     frontend:
       root_path: './client'
+
       project_setup:
         before:
           - command: yarn

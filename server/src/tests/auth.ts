@@ -1,4 +1,4 @@
-import * as chai from 'chai';
+/* import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import { Connection } from 'typeorm';
 import 'mocha';
@@ -42,3 +42,4 @@ describe('Auth', () => {
     });
   });
 });
+ */
