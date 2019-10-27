@@ -13,6 +13,7 @@
     "@types/lodash": "^4.14.141",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.8",
+    "@types/socket.io": "^2.1.4",
     "@types/supertest": "^2.0.8",
     "@types/yup": "^0.26.24",
     "chai": "^4.2.0",
@@ -35,6 +36,7 @@
     "pg": "^7.3.0",
     "reflect-metadata": "^0.1.10",
     "rimraf": "^3.0.0",
+    "socket.io": "^2.3.0",
     "typeorm": "^0.2.19",
     "yup": "^0.27.0"
   },
