@@ -1,6 +1,7 @@
 import { types, flow } from 'mobx-state-tree';
 import decode from 'jwt-decode';
 
+import { CurrentUserModel } from '../models/CurrentUser';
 import apiService from '../api/apiService';
 import formatError from '../utils/formatError';
 
@@ -8,7 +9,8 @@ export const AuthStore = types
   .model('AuthStore', {
     authToken: types.maybe(types.string),
     isAuthenticed: false,
-    error: types.maybe(types.string)
+    error: types.maybe(types.string),
+    user: types.maybe(CurrentUserModel),
   })
   .views(self => ({
     get checkAuth() {
@@ -24,6 +26,7 @@ export const AuthStore = types
           if (res.token) {
             self.authToken = res.token;
             self.isAuthenticed = true;
+            self.getUserInfo();
           } else {
             return formatError(res);
           }
@@ -47,6 +50,16 @@ export const AuthStore = types
           } else {
             return formatError(res);
           }
+        }
+      } catch (error) {
+        self.error = error.message;
+      }
+    }),
+    getUserInfo: flow(function*() {
+      try {
+        if (self.authToken) {
+          const res = yield apiService.Auth.me(self.authToken);
+          self.user = res;
         }
       } catch (error) {
         self.error = error.message;

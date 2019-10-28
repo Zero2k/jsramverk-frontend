@@ -1,4 +1,5 @@
 export interface User {
+  socketId: string;
   id: string;
   sender: string;
   senderAvatar: string;
@@ -16,6 +17,10 @@ export class UsersService {
 
   removeUser(userId: string) {
     this.users = this.users.filter(user => user.id !== userId);
+  }
+
+  disconnectUser(socketId: string) {
+    this.users = this.users.filter(user => user.socketId !== socketId);
   }
 
   getUsers(): Array<User> {

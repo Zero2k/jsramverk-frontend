@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -30,73 +30,87 @@ class Header extends React.Component {
     const { classes, authStore } = this.props;
     return (
       <React.Fragment>
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        className={classes.appBar}
-      >
-        <Toolbar className={classes.toolbar}>
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            Me App
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="textPrimary"
-              component={RouterLink} to="/"
-              className={classes.link}
+        <AppBar
+          position="static"
+          color="default"
+          elevation={0}
+          className={classes.appBar}
+        >
+          <Toolbar className={classes.toolbar}>
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.toolbarTitle}
             >
-              Start
-            </Link>
-          </nav>
-          {authStore.checkAuth ? (
-          <nav>
-            <Link
-              variant="button"
-              color="textPrimary"
-              component={RouterLink} to="/reports"
-              className={classes.link}
-            >
-              Reports
-            </Link>
-            <Button
-              color="primary"
-              variant="outlined"
-              component={RouterLink} to="/reports/create"
-              className={classes.link}
-            >
-              Create
-            </Button>
-            <Button
-              color="primary"
-              variant="outlined"
-              component={RouterLink} to="/logout"
-              className={classes.link}
-            >
-              Log Out
-            </Button>
-          </nav>
-          ) : null}
-          {!authStore.checkAuth ? (
-          <Button
-            color="primary"
-            variant="outlined"
-            component={RouterLink} to="/auth"
-            className={classes.link}
-          >
-            Auth
-          </Button>
-          ) : null}
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
-    )
+              Me App
+            </Typography>
+            <nav>
+              <Link
+                variant="button"
+                color="textPrimary"
+                component={RouterLink}
+                to="/"
+                className={classes.link}
+              >
+                Start
+              </Link>
+            </nav>
+            {authStore.checkAuth ? (
+              <nav>
+                <Link
+                  variant="button"
+                  color="textPrimary"
+                  component={RouterLink}
+                  to="/reports"
+                  className={classes.link}
+                >
+                  Reports
+                </Link>
+                <Link
+                  variant="button"
+                  color="textPrimary"
+                  component={RouterLink}
+                  to="/chat"
+                  className={classes.link}
+                >
+                  Chat
+                </Link>
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  component={RouterLink}
+                  to="/reports/create"
+                  className={classes.link}
+                >
+                  Create
+                </Button>
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  component={RouterLink}
+                  to="/logout"
+                  className={classes.link}
+                >
+                  Log Out
+                </Button>
+              </nav>
+            ) : null}
+            {!authStore.checkAuth ? (
+              <Button
+                color="primary"
+                variant="outlined"
+                component={RouterLink}
+                to="/auth"
+                className={classes.link}
+              >
+                Auth
+              </Button>
+            ) : null}
+          </Toolbar>
+        </AppBar>
+      </React.Fragment>
+    );
   }
 }
 

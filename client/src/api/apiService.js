@@ -40,7 +40,7 @@ const Auth = {
     requests.post('/users/login', { email, password }),
   signUp: async (username, email, password, date) =>
     requests.post('/users/signup', { username, email, password, date }),
-  me: async token => requests.post('/users/me', null, token)
+  me: async token => requests.get('/users/me', token)
 };
 
 const Report = {

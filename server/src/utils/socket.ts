@@ -12,7 +12,12 @@ export default (server: any) => {
     });
 
     socket.on('disconnect', () => {
-      usersService.removeUser(socket.id);
+      usersService.disconnectUser(socket.id);
+      io.emit('connected', usersService.getUsers());
+    });
+
+    socket.on('leave', id => {
+      usersService.removeUser(id);
       io.emit('connected', usersService.getUsers());
     });
 
