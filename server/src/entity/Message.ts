@@ -7,15 +7,21 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Report extends BaseEntity {
+export class Message extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column('int')
+  senderId: number;
+
   @Column('varchar')
-  title: string;
+  sender: string;
+
+  @Column('varchar')
+  senderAvatar: string;
 
   @Column('text', { nullable: false })
-  text: string;
+  msg: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
