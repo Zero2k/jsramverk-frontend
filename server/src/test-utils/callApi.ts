@@ -3,33 +3,37 @@ import app from '../app';
 
 const BASE_URL = '/api/v1/';
 
-const post = (url: string, body: any, token: any = null) => {
-  const httpRequest = request(app).post(`${BASE_URL}${url}`);
-  httpRequest.set('Accept', 'application/json');
-  httpRequest.set({ Authorization: token });
-  httpRequest.send(body);
+const post = async (url: string, body: any, token: any = null) => {
+  const httpRequest = await request(app)
+    .post(`${BASE_URL}${url}`)
+    .set('Accept', 'application/json')
+    .set({ Authorization: token })
+    .send(body);
   return httpRequest;
 };
 
-const get = (url: string, token: any = null) => {
-  const httpRequest = request(app).get(`${BASE_URL}${url}`);
-  httpRequest.set('Accept', 'application/json');
-  httpRequest.set({ Authorization: token });
+const get = async (url: string, token: any = null) => {
+  const httpRequest = await request(app)
+    .get(`${BASE_URL}${url}`)
+    .set('Accept', 'application/json')
+    .set({ Authorization: token });
   return httpRequest;
 };
 
-const put = (url: string, body: any, token: any = null) => {
-  const httpRequest = request(app).put(`${BASE_URL}${url}`);
-  httpRequest.set('Accept', 'application/json');
-  httpRequest.set({ Authorization: token });
-  httpRequest.send(body);
+const put = async (url: string, body: any, token: any = null) => {
+  const httpRequest = await request(app)
+    .put(`${BASE_URL}${url}`)
+    .set('Accept', 'application/json')
+    .set({ Authorization: token })
+    .send(body);
   return httpRequest;
 };
 
-const del = (url: string, token: any = null) => {
-  const httpRequest = request(app).del(`${BASE_URL}${url}`);
-  httpRequest.set('Accept', 'application/json');
-  httpRequest.set({ Authorization: token });
+const del = async (url: string, token: any = null) => {
+  const httpRequest = await request(app)
+    .del(`${BASE_URL}${url}`)
+    .set('Accept', 'application/json')
+    .set({ Authorization: token });
   return httpRequest;
 };
 

@@ -16,7 +16,6 @@ before_script:
   - cd server
   - docker-compose up -d
   - sleep 70
-  - docker ps
   - cp ormconfig.travis.json ormconfig.json
   - cd ..
 
