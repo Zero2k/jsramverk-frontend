@@ -6,16 +6,17 @@ node_js:
   - '8'
 
 services:
-  - postgresql
+  - mysql
 
 env:
   - TEST_DIR=server
   - TEST_DIR=client
 
 before_script:
-  - sudo service mysql stop
-  - psql -c "CREATE DATABASE travis_ci_test;" -U postgres
-  - psql -c "CREATE USER test WITH PASSWORD 'test';" -U postgres
+  - mysql -e 'create database travis_ci_test  DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
+  - mysql -u root -e "create user test identified by 'some password'; grant all on travis_ci_test.* to test;"
+  - mysql -u root -e "create user test@localhost identified by 'some password'; grant all on travis_ci_test.* to test@localhost;"
+  - mysql -u test -p'some password' -e 'show databases'
   - cd server
   - sleep 60
   - cp ormconfig.travis.json ormconfig.json
