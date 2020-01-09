@@ -6,18 +6,17 @@ node_js:
   - '8'
 
 services:
-  - mysql
+  - docker
 
 env:
   - TEST_DIR=server
   - TEST_DIR=client
 
 before_script:
-  - mysql -e 'create database travis_ci_test;'
-  - mysql -u root -e "create user 'test'@'localhost' identified by 'test';"
-  - mysql -u root -e "grant all privileges on travis_ci_test.* to 'test'@'localhost';"
   - cd server
-  - sleep 200
+  - docker-compose up -d
+  - sleep 70
+  - docker ps
   - cp ormconfig.travis.json ormconfig.json
   - cd ..
 
