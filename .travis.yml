@@ -13,12 +13,11 @@ env:
   - TEST_DIR=client
 
 before_script:
-  - mysql -e 'create database travis_ci_test  DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
-  - mysql -u root -e "create user test identified by 'test'; grant all on travis_ci_test.* to test;"
-  - mysql -u root -e "create user test@localhost identified by 'test'; grant all on travis_ci_test.* to test@localhost;"
-  - mysql -u test -p'test' -e 'show databases'
+  - mysql -e 'create database travis_ci_test;'
+  - mysql -u root -e "create user 'test'@'localhost' identified by 'test';"
+  - mysql -u root -e "grant all privileges on travis_ci_test.* to 'test'@'localhost';"
   - cd server
-  - sleep 60
+  - sleep 200
   - cp ormconfig.travis.json ormconfig.json
   - cd ..
 
